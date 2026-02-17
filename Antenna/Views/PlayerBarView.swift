@@ -6,20 +6,26 @@ struct PlayerBarView: View {
   var body: some View {
     @Bindable var player = playerVM
     HStack(spacing: 12) {
-      VStack(alignment: .leading, spacing: 2) {
-        if playerVM.currentStation == nil {
-          Text("Select a station to start listening")
-            .font(.headline)
-            .foregroundStyle(.tertiary)
-            .lineLimit(1)
-        } else {
-          Text(playerVM.currentStation?.name ?? "Untitled Station")
+      if let station = playerVM.currentStation {
+        CachedAsyncImage(url: station.faviconURL)
+          .frame(width: 32, height: 32)
+          .clipShape(RoundedRectangle(cornerRadius: 6))
+
+        VStack(alignment: .leading, spacing: 2) {
+          Text(station.name)
             .font(.headline)
             .lineLimit(1)
 
           statusText
             .font(.caption)
             .foregroundStyle(.secondary)
+        }
+      } else {
+        VStack(alignment: .leading, spacing: 2) {
+          Text("Select a station to start listening")
+            .font(.headline)
+            .foregroundStyle(.tertiary)
+            .lineLimit(1)
         }
       }
 
