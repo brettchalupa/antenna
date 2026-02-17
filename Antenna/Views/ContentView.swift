@@ -1,60 +1,49 @@
 import SwiftUI
 
+enum SidebarItem: String, CaseIterable, Identifiable {
+  case discover = "Discover"
+  case search = "Search"
+
+  var id: String { rawValue }
+
+  var icon: String {
+    switch self {
+    case .discover: return "star"
+    case .search: return "magnifyingglass"
+    }
+  }
+}
+
 struct ContentView: View {
   @Environment(PlayerViewModel.self) private var playerVM
-  @State private var streamURL = "https://wxpnhi.xpn.org/xpnhi-nopreroll"
-  @State private var stationName = "WXPN 88.5"
+  @State private var selectedTab: SidebarItem? = .discover
+  var browseVM: BrowseViewModel
 
   var body: some View {
-    VStack(spacing: 0) {
-      // Main content area
-      VStack(spacing: 16) {
-        Spacer()
-
-        Image(systemName: "antenna.radiowaves.left.and.right")
-          .font(.system(size: 48))
-          .foregroundStyle(.secondary)
-
-        Text("Antenna")
-          .font(.largeTitle)
-          .fontWeight(.bold)
-
-        Text("Internet Radio Player")
-          .font(.subheadline)
-          .foregroundStyle(.secondary)
-
-        Spacer()
-
-        // Stream input section
-        GroupBox("Play a Stream") {
-          VStack(alignment: .leading, spacing: 12) {
-            TextField("Station Name", text: $stationName)
-              .textFieldStyle(.roundedBorder)
-
-            TextField("Stream URL", text: $streamURL)
-              .textFieldStyle(.roundedBorder)
-
-            HStack {
-              Spacer()
-              Button {
-                playerVM.playURL(streamURL, name: stationName)
-              } label: {
-                Label("Play", systemImage: "play.fill")
-              }
-              .buttonStyle(.borderedProminent)
-              .disabled(streamURL.isEmpty)
-            }
-          }
-          .padding(4)
-        }
-        .padding(.horizontal)
-
-        Spacer()
+    NavigationSplitView {
+      List(SidebarItem.allCases, id: \.self, selection: $selectedTab) { item in
+        Label(item.rawValue, systemImage: item.icon)
       }
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .navigationSplitViewColumnWidth(min: 150, ideal: 180)
+    } detail: {
+      VStack(spacing: 0) {
+        // Main content
+        Group {
+          switch selectedTab {
+          case .discover:
+            BrowseView(browseVM: browseVM)
+          case .search:
+            SearchView(browseVM: browseVM)
+          case nil:
+            Text("Select a tab")
+              .foregroundStyle(.secondary)
+          }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-      // Now playing bar pinned to the bottom
-      PlayerBarView()
+        // Now playing bar pinned to the bottom
+        PlayerBarView()
+      }
     }
   }
 }
