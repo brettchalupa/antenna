@@ -14,10 +14,13 @@
 		3F7ED3F4D18978C07177AE8C /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8C8968FF13A271589D469 /* PlayerViewModel.swift */; };
 		4870369D542C58A83C2F54BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41225CB16B926CE5AA433B3 /* ContentView.swift */; };
 		4D5C2C74DC0623356519DD6C /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69ACEB00D50170C8C92696 /* PlayerState.swift */; };
+		656B0054D6B5E1C89A059E57 /* AddStationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B676E8D0D87D6DEF7999AA7 /* AddStationView.swift */; };
 		71A8043C22009C9DF453D2AF /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C567BD261DE07B5140EA06CF /* AudioPlayer.swift */; };
 		806FD656EAD8E27ED391474B /* RadioBrowserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB842393461D6B912C1D0C3 /* RadioBrowserAPI.swift */; };
+		8D476B9DE399578FA24E575A /* FavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCF164E9295212B951C1EDA /* FavoritesStore.swift */; };
 		AE19D122AE88600BD6B3CFAC /* StationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5864FF49240D66E7482CA /* StationRowView.swift */; };
 		CCFD6FC742E2777FE9535B9E /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC889AAC95CB951E44AD7CD5 /* BrowseViewModel.swift */; };
+		E81EFCA0A85DB3C339FDCF9D /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7072327588293E5423F554 /* FavoritesView.swift */; };
 		F98F5D7A6E2E0C7E2E38BE2B /* AntennaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C73A111ACEE546166A4829 /* AntennaApp.swift */; };
 		F9BE32B1FE9370BEE5134327 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7768776A2DFA90AB9C887459 /* Station.swift */; };
 /* End PBXBuildFile section */
@@ -25,11 +28,14 @@
 /* Begin PBXFileReference section */
 		0A77CC5287DE3471B6343EC7 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		1F0C0AB971DB71F537FD206B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5B676E8D0D87D6DEF7999AA7 /* AddStationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStationView.swift; sourceTree = "<group>"; };
 		5FD5864FF49240D66E7482CA /* StationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationRowView.swift; sourceTree = "<group>"; };
 		65C73A111ACEE546166A4829 /* AntennaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntennaApp.swift; sourceTree = "<group>"; };
 		74C8C8968FF13A271589D469 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		7768776A2DFA90AB9C887459 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		7B7072327588293E5423F554 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		7C55BE0E30BE4F62F4AAA11A /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
+		7CCF164E9295212B951C1EDA /* FavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStore.swift; sourceTree = "<group>"; };
 		BA69ACEB00D50170C8C92696 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		BC889AAC95CB951E44AD7CD5 /* BrowseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewModel.swift; sourceTree = "<group>"; };
 		C567BD261DE07B5140EA06CF /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
@@ -64,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				C567BD261DE07B5140EA06CF /* AudioPlayer.swift */,
+				7CCF164E9295212B951C1EDA /* FavoritesStore.swift */,
 				CEB842393461D6B912C1D0C3 /* RadioBrowserAPI.swift */,
 			);
 			path = Services;
@@ -103,8 +110,10 @@
 		EA1E98EABAFAA587EFE1B52C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B676E8D0D87D6DEF7999AA7 /* AddStationView.swift */,
 				7C55BE0E30BE4F62F4AAA11A /* BrowseView.swift */,
 				E41225CB16B926CE5AA433B3 /* ContentView.swift */,
+				7B7072327588293E5423F554 /* FavoritesView.swift */,
 				D7B7C4D54D878736D362AC9B /* PlayerBarView.swift */,
 				0A77CC5287DE3471B6343EC7 /* SearchView.swift */,
 				5FD5864FF49240D66E7482CA /* StationRowView.swift */,
@@ -185,11 +194,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				656B0054D6B5E1C89A059E57 /* AddStationView.swift in Sources */,
 				F98F5D7A6E2E0C7E2E38BE2B /* AntennaApp.swift in Sources */,
 				71A8043C22009C9DF453D2AF /* AudioPlayer.swift in Sources */,
 				0938F57AD89D2FF8F4609C9D /* BrowseView.swift in Sources */,
 				CCFD6FC742E2777FE9535B9E /* BrowseViewModel.swift in Sources */,
 				4870369D542C58A83C2F54BA /* ContentView.swift in Sources */,
+				8D476B9DE399578FA24E575A /* FavoritesStore.swift in Sources */,
+				E81EFCA0A85DB3C339FDCF9D /* FavoritesView.swift in Sources */,
 				0BE7B559C63A67CF0F590B6E /* PlayerBarView.swift in Sources */,
 				4D5C2C74DC0623356519DD6C /* PlayerState.swift in Sources */,
 				3F7ED3F4D18978C07177AE8C /* PlayerViewModel.swift in Sources */,

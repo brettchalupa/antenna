@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct StationRowView: View {
+  @Environment(FavoritesStore.self) private var favoritesStore
   let station: Station
   let isCurrentStation: Bool
   let onPlay: () -> Void
@@ -55,6 +56,17 @@ struct StationRowView: View {
 
       Spacer()
 
+      // Favorite toggle
+      Button {
+        favoritesStore.toggle(station)
+      } label: {
+        Image(systemName: favoritesStore.isFavorite(station) ? "heart.fill" : "heart")
+          .font(.body)
+          .frame(width: 28, height: 28)
+      }
+      .buttonStyle(.borderless)
+      .foregroundColor(favoritesStore.isFavorite(station) ? .red : .secondary)
+
       // Play button
       Button {
         onPlay()
@@ -72,7 +84,7 @@ struct StationRowView: View {
 }
 
 private func flagEmoji(for countryCode: String) -> String {
-  let base: UInt32 = 127397
+  let base: UInt32 = 127_397
   return countryCode.uppercased().unicodeScalars.compactMap { UnicodeScalar(base + $0.value) }
     .map { String($0) }
     .joined()

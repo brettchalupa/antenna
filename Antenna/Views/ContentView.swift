@@ -3,6 +3,7 @@ import SwiftUI
 enum SidebarItem: String, CaseIterable, Identifiable {
   case discover = "Discover"
   case search = "Search"
+  case favorites = "Favorites"
 
   var id: String { rawValue }
 
@@ -10,6 +11,7 @@ enum SidebarItem: String, CaseIterable, Identifiable {
     switch self {
     case .discover: return "star"
     case .search: return "magnifyingglass"
+    case .favorites: return "heart"
     }
   }
 }
@@ -27,13 +29,14 @@ struct ContentView: View {
       .navigationSplitViewColumnWidth(min: 150, ideal: 180)
     } detail: {
       VStack(spacing: 0) {
-        // Main content
         Group {
           switch selectedTab {
           case .discover:
             BrowseView(browseVM: browseVM)
           case .search:
             SearchView(browseVM: browseVM)
+          case .favorites:
+            FavoritesView()
           case nil:
             Text("Select a tab")
               .foregroundStyle(.secondary)
@@ -41,7 +44,6 @@ struct ContentView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-        // Now playing bar pinned to the bottom
         PlayerBarView()
       }
     }
