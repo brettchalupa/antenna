@@ -4,6 +4,7 @@ struct PlayerBarView: View {
   @Environment(PlayerViewModel.self) private var playerVM
 
   var body: some View {
+    @Bindable var player = playerVM
     HStack(spacing: 12) {
       VStack(alignment: .leading, spacing: 2) {
         if playerVM.currentStation == nil {
@@ -23,6 +24,20 @@ struct PlayerBarView: View {
       }
 
       Spacer()
+
+      // Volume slider
+      HStack(spacing: 4) {
+        Image(systemName: volumeIcon)
+          .font(.caption)
+          .foregroundStyle(.secondary)
+          .frame(width: 14)
+        Slider(value: $player.volume, in: 0...1)
+          .frame(width: 80)
+        Image(systemName: "speaker.wave.3.fill")
+          .font(.caption)
+          .foregroundStyle(.secondary)
+          .frame(width: 14)
+      }
 
       if playerVM.currentStation != nil {
         HStack(spacing: 8) {
@@ -52,6 +67,16 @@ struct PlayerBarView: View {
     .background(.bar)
     .overlay(alignment: .top) {
       Divider()
+    }
+  }
+
+  private var volumeIcon: String {
+    if playerVM.volume == 0 {
+      return "speaker.slash.fill"
+    } else if playerVM.volume < 0.5 {
+      return "speaker.wave.1.fill"
+    } else {
+      return "speaker.wave.2.fill"
     }
   }
 

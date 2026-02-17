@@ -17,6 +17,11 @@ final class PlayerViewModel {
     state.isLoading
   }
 
+  var volume: Float {
+    get { audioPlayer.volume }
+    set { audioPlayer.volume = newValue }
+  }
+
   func play(station: Station) {
     guard let url = station.streamURL else {
       return

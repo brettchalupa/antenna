@@ -4,8 +4,17 @@ import MediaPlayer
 
 @Observable
 final class AudioPlayer {
+  private static let volumeKey = "playerVolume"
+
   private(set) var state: PlayerState = .idle
   private(set) var currentStationName: String?
+
+  var volume: Float {
+    didSet {
+      player?.volume = volume
+      UserDefaults.standard.set(volume, forKey: Self.volumeKey)
+    }
+  }
 
   private var player: AVPlayer?
   private var playerItem: AVPlayerItem?
@@ -13,6 +22,8 @@ final class AudioPlayer {
   private var timeControlObservation: NSKeyValueObservation?
 
   init() {
+    let saved = UserDefaults.standard.object(forKey: Self.volumeKey) as? Float
+    volume = saved ?? 0.75
     setupRemoteCommands()
   }
 
@@ -23,6 +34,7 @@ final class AudioPlayer {
 
     playerItem = AVPlayerItem(url: url)
     player = AVPlayer(playerItem: playerItem)
+    player?.volume = volume
 
     observePlayer()
     player?.play()
