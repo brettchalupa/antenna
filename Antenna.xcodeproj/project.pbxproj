@@ -1,0 +1,373 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0BE7B559C63A67CF0F590B6E /* PlayerBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7C4D54D878736D362AC9B /* PlayerBarView.swift */; };
+		2F03B49F556C33D42CA87C38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6956701519454E4B14C5A47 /* Assets.xcassets */; };
+		3F7ED3F4D18978C07177AE8C /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C8C8968FF13A271589D469 /* PlayerViewModel.swift */; };
+		4870369D542C58A83C2F54BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41225CB16B926CE5AA433B3 /* ContentView.swift */; };
+		4D5C2C74DC0623356519DD6C /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69ACEB00D50170C8C92696 /* PlayerState.swift */; };
+		71A8043C22009C9DF453D2AF /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C567BD261DE07B5140EA06CF /* AudioPlayer.swift */; };
+		F98F5D7A6E2E0C7E2E38BE2B /* AntennaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C73A111ACEE546166A4829 /* AntennaApp.swift */; };
+		F9BE32B1FE9370BEE5134327 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7768776A2DFA90AB9C887459 /* Station.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1F0C0AB971DB71F537FD206B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		65C73A111ACEE546166A4829 /* AntennaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntennaApp.swift; sourceTree = "<group>"; };
+		74C8C8968FF13A271589D469 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		7768776A2DFA90AB9C887459 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		BA69ACEB00D50170C8C92696 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
+		C567BD261DE07B5140EA06CF /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		D1267FD53238E823380B5463 /* Antenna.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Antenna.entitlements; sourceTree = "<group>"; };
+		D6956701519454E4B14C5A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D7B7C4D54D878736D362AC9B /* PlayerBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerBarView.swift; sourceTree = "<group>"; };
+		E41225CB16B926CE5AA433B3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F29E7315B5C2D9A27C4974FD /* Antenna.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Antenna.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2D25930DE873AA2581AA735A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BA69ACEB00D50170C8C92696 /* PlayerState.swift */,
+				7768776A2DFA90AB9C887459 /* Station.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		44E2ADD132A7375BE2C038FD /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				74C8C8968FF13A271589D469 /* PlayerViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		92DC44C3ABCBAD3DC17C439A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C567BD261DE07B5140EA06CF /* AudioPlayer.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C468E7AA80B5AE332AB6A3CC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D6956701519454E4B14C5A47 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C8017B9ED123487271A61D2B /* Antenna */ = {
+			isa = PBXGroup;
+			children = (
+				D1267FD53238E823380B5463 /* Antenna.entitlements */,
+				65C73A111ACEE546166A4829 /* AntennaApp.swift */,
+				1F0C0AB971DB71F537FD206B /* Info.plist */,
+				2D25930DE873AA2581AA735A /* Models */,
+				C468E7AA80B5AE332AB6A3CC /* Resources */,
+				92DC44C3ABCBAD3DC17C439A /* Services */,
+				44E2ADD132A7375BE2C038FD /* ViewModels */,
+				EA1E98EABAFAA587EFE1B52C /* Views */,
+			);
+			path = Antenna;
+			sourceTree = "<group>";
+		};
+		DAE92C875B2EF304A5BAD3EE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F29E7315B5C2D9A27C4974FD /* Antenna.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA1E98EABAFAA587EFE1B52C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E41225CB16B926CE5AA433B3 /* ContentView.swift */,
+				D7B7C4D54D878736D362AC9B /* PlayerBarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F4C6202FFF42E51AC08677D1 = {
+			isa = PBXGroup;
+			children = (
+				C8017B9ED123487271A61D2B /* Antenna */,
+				DAE92C875B2EF304A5BAD3EE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FDB55B92FFA90704ACA1CCB5 /* Antenna */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1D9DD4F09A5FF9562CEA628 /* Build configuration list for PBXNativeTarget "Antenna" */;
+			buildPhases = (
+				142A78CD06ECAF6F4F7D5393 /* Sources */,
+				FCCA46BFCBDF953A0F8BCF91 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Antenna;
+			packageProductDependencies = (
+			);
+			productName = Antenna;
+			productReference = F29E7315B5C2D9A27C4974FD /* Antenna.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9FB3494BE6F6525A22000066 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = 731BC060AAA6E3F5BFB858D5 /* Build configuration list for PBXProject "Antenna" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = F4C6202FFF42E51AC08677D1;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FDB55B92FFA90704ACA1CCB5 /* Antenna */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FCCA46BFCBDF953A0F8BCF91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F03B49F556C33D42CA87C38 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		142A78CD06ECAF6F4F7D5393 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F98F5D7A6E2E0C7E2E38BE2B /* AntennaApp.swift in Sources */,
+				71A8043C22009C9DF453D2AF /* AudioPlayer.swift in Sources */,
+				4870369D542C58A83C2F54BA /* ContentView.swift in Sources */,
+				0BE7B559C63A67CF0F590B6E /* PlayerBarView.swift in Sources */,
+				4D5C2C74DC0623356519DD6C /* PlayerState.swift in Sources */,
+				3F7ED3F4D18978C07177AE8C /* PlayerViewModel.swift in Sources */,
+				F9BE32B1FE9370BEE5134327 /* Station.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		17ADC10441DAEC8242305B23 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		3631B4FFC6D772F8848AE07B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_ENTITLEMENTS = Antenna/Antenna.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Antenna/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antenna.app;
+				PRODUCT_NAME = Antenna;
+				SDKROOT = macosx;
+				SWIFT_STRICT_CONCURRENCY = complete;
+			};
+			name = Release;
+		};
+		8E403B4A3E8C64F5610551FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_ENTITLEMENTS = Antenna/Antenna.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Antenna/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antenna.app;
+				PRODUCT_NAME = Antenna;
+				SDKROOT = macosx;
+				SWIFT_STRICT_CONCURRENCY = complete;
+			};
+			name = Debug;
+		};
+		E7A4A5076DEDE5CC632523EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		731BC060AAA6E3F5BFB858D5 /* Build configuration list for PBXProject "Antenna" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7A4A5076DEDE5CC632523EA /* Debug */,
+				17ADC10441DAEC8242305B23 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A1D9DD4F09A5FF9562CEA628 /* Build configuration list for PBXNativeTarget "Antenna" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E403B4A3E8C64F5610551FD /* Debug */,
+				3631B4FFC6D772F8848AE07B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9FB3494BE6F6525A22000066 /* Project object */;
+}

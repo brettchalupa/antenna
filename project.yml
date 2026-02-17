@@ -1,0 +1,36 @@
+name: Antenna
+options:
+  bundleIdPrefix: com.antenna
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+
+targets:
+  Antenna:
+    type: application
+    platform: macOS
+    sources:
+      - path: Antenna
+        excludes:
+          - "**/.DS_Store"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.antenna.app
+        PRODUCT_NAME: Antenna
+        INFOPLIST_FILE: Antenna/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Antenna/Antenna.entitlements
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: 1
+        SWIFT_STRICT_CONCURRENCY: complete
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGNING_REQUIRED: "NO"
+    entitlements:
+      path: Antenna/Antenna.entitlements
+      properties:
+        com.apple.security.network.client: true

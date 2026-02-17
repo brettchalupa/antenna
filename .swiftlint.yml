@@ -1,0 +1,18 @@
+included:
+  - Antenna
+
+excluded:
+  - .build
+  - build
+
+disabled_rules:
+  - trailing_whitespace
+  - line_length
+  - todo
+  - closure_parameter_position  # conflicts with swift-format line wrapping
+
+opt_in_rules:
+  - empty_count
+  - closure_spacing
+
+warning_threshold: 20

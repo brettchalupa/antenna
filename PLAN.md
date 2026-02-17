@@ -222,32 +222,22 @@ _Get a working app that can play a hardcoded stream URL._
 # that defines an executable target, or create the .xcodeproj manually
 ```
 
-### Daily Commands
+### Daily Commands (via `just`)
 
 ```bash
-# Build the app
-xcodebuild -project Antenna.xcodeproj -scheme Antenna -configuration Debug build
-
-# Run tests
-xcodebuild -project Antenna.xcodeproj -scheme Antenna -configuration Debug test
-
-# Build and run (debug)
-xcodebuild -project Antenna.xcodeproj -scheme Antenna -configuration Debug build && \
-  open build/Debug/Antenna.app
-
-# Clean build
-xcodebuild -project Antenna.xcodeproj -scheme Antenna clean
-
-# Lint (after installing swiftlint)
-brew install swiftlint
-swiftlint --config .swiftlint.yml
-
-# Format
-swift format --in-place --recursive Sources/
+just generate   # Generate .xcodeproj from project.yml
+just build      # Build the app (debug)
+just run        # Build and run
+just test       # Run tests
+just clean      # Clean build artifacts
+just lint       # Lint with SwiftLint
+just lint-fix   # Auto-fix lint issues
+just rebuild    # Regenerate project + build
+just open       # Open in Xcode
 ```
 
-### Makefile (for convenience)
-We'll create a `Makefile` with targets: `build`, `run`, `test`, `lint`, `clean`, `format`.
+### Justfile
+We use [`just`](https://github.com/casey/just) as our command runner — simpler than Make, no tab sensitivity, better error messages.
 
 ### SwiftLint Configuration
 Minimal `.swiftlint.yml` with sensible defaults — not too strict for a learning project.
