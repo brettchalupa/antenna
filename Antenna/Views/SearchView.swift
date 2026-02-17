@@ -3,6 +3,8 @@ import SwiftUI
 struct SearchView: View {
   @Environment(PlayerViewModel.self) private var playerVM
   @Bindable var browseVM: BrowseViewModel
+  @Binding var focusTrigger: Int
+  @FocusState private var fieldFocused: Bool
 
   var body: some View {
     VStack(spacing: 0) {
@@ -12,6 +14,7 @@ struct SearchView: View {
           .foregroundStyle(.secondary)
         TextField("Search stations...", text: $browseVM.searchText)
           .textFieldStyle(.plain)
+          .focused($fieldFocused)
           .onSubmit { Task { await browseVM.search() } }
 
         if browseVM.hasSearchQuery {
@@ -72,6 +75,13 @@ struct SearchView: View {
             onPlay: { playStation(station) }
           )
         }
+      }
+    }
+    .onChange(of: focusTrigger) {
+      // Small delay so the view is visible before focusing
+      Task { @MainActor in
+        try? await Task.sleep(for: .milliseconds(100))
+        fieldFocused = true
       }
     }
   }

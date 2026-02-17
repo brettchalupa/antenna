@@ -11,6 +11,7 @@ disabled_rules:
   - todo
   - closure_parameter_position  # conflicts with swift-format line wrapping
   - trailing_comma  # swift-format adds trailing commas
+  - opening_brace  # swift-format controls brace placement
 
 opt_in_rules:
   - empty_count

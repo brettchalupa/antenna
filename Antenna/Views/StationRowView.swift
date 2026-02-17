@@ -9,19 +9,9 @@ struct StationRowView: View {
   var body: some View {
     HStack(spacing: 10) {
       // Favicon
-      AsyncImage(url: station.faviconURL) { phase in
-        switch phase {
-        case .success(let image):
-          image
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-        default:
-          Image(systemName: "radio")
-            .foregroundStyle(.secondary)
-        }
-      }
-      .frame(width: 32, height: 32)
-      .clipShape(RoundedRectangle(cornerRadius: 6))
+      CachedAsyncImage(url: station.faviconURL)
+        .frame(width: 32, height: 32)
+        .clipShape(RoundedRectangle(cornerRadius: 6))
 
       // Station info
       VStack(alignment: .leading, spacing: 2) {

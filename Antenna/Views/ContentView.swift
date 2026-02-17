@@ -18,8 +18,9 @@ enum SidebarItem: String, CaseIterable, Identifiable {
 
 struct ContentView: View {
   @Environment(PlayerViewModel.self) private var playerVM
-  @State private var selectedTab: SidebarItem? = .discover
   var browseVM: BrowseViewModel
+  @Binding var selectedTab: SidebarItem?
+  @Binding var searchFocusTrigger: Int
 
   var body: some View {
     NavigationSplitView {
@@ -34,7 +35,7 @@ struct ContentView: View {
           case .discover:
             BrowseView(browseVM: browseVM)
           case .search:
-            SearchView(browseVM: browseVM)
+            SearchView(browseVM: browseVM, focusTrigger: $searchFocusTrigger)
           case .favorites:
             FavoritesView()
           case nil:
