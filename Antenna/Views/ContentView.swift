@@ -1,17 +1,17 @@
 import SwiftUI
 
 enum SidebarItem: String, CaseIterable, Identifiable {
+  case favorites = "Favorites"
   case discover = "Discover"
   case search = "Search"
-  case favorites = "Favorites"
 
   var id: String { rawValue }
 
   var icon: String {
     switch self {
-    case .discover: return "star"
-    case .search: return "magnifyingglass"
     case .favorites: return "heart"
+    case .discover: return "globe"
+    case .search: return "magnifyingglass"
     }
   }
 }

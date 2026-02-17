@@ -77,12 +77,10 @@ struct SearchView: View {
         }
       }
     }
-    .onChange(of: focusTrigger) {
+    .task(id: focusTrigger) {
       // Small delay so the view is visible before focusing
-      Task { @MainActor in
-        try? await Task.sleep(for: .milliseconds(100))
-        fieldFocused = true
-      }
+      try? await Task.sleep(for: .milliseconds(100))
+      fieldFocused = true
     }
   }
 

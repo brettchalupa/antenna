@@ -5,7 +5,7 @@ struct AntennaApp: App {
   @State private var playerViewModel = PlayerViewModel()
   @State private var browseViewModel = BrowseViewModel()
   @State private var favoritesStore = FavoritesStore()
-  @State private var selectedTab: SidebarItem? = .discover
+  @State private var selectedTab: SidebarItem? = .favorites
   @State private var searchFocusTrigger = 0
 
   var body: some Scene {
@@ -43,18 +43,18 @@ struct AntennaApp: App {
 
         Divider()
 
-        Button("Discover") {
-          selectedTab = .discover
+        Button("Favorites") {
+          selectedTab = .favorites
         }
         .keyboardShortcut("1", modifiers: .command)
 
-        Button("Search") {
-          selectedTab = .search
+        Button("Discover") {
+          selectedTab = .discover
         }
         .keyboardShortcut("2", modifiers: .command)
 
-        Button("Favorites") {
-          selectedTab = .favorites
+        Button("Search") {
+          selectedTab = .search
         }
         .keyboardShortcut("3", modifiers: .command)
       }

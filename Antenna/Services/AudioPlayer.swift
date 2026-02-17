@@ -54,11 +54,11 @@ final class AudioPlayer {
   }
 
   func stop() {
+    statusObservation = nil
+    timeControlObservation = nil
     player?.pause()
     player = nil
     playerItem = nil
-    statusObservation = nil
-    timeControlObservation = nil
     state = .idle
     currentStationName = nil
     clearNowPlaying()
@@ -92,8 +92,8 @@ final class AudioPlayer {
         case .waitingToPlayAtSpecifiedRate:
           self?.state = .loading
         case .paused:
-          if self?.state == .loading {
-            // Still loading, don't override
+          if self?.state == .loading || self?.state == .idle {
+            // Don't override loading or idle (stopped) state
           } else {
             self?.state = .paused
           }

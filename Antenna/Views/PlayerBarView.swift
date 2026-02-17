@@ -4,11 +4,15 @@ struct PlayerBarView: View {
   @Environment(PlayerViewModel.self) private var playerVM
 
   var body: some View {
-    if playerVM.state != .idle {
-      HStack(spacing: 12) {
-        // Station info
-        VStack(alignment: .leading, spacing: 2) {
-          Text(playerVM.currentStation?.name ?? "Unknown Station")
+    HStack(spacing: 12) {
+      VStack(alignment: .leading, spacing: 2) {
+        if playerVM.currentStation == nil {
+          Text("Select a station to start listening")
+            .font(.headline)
+            .foregroundStyle(.tertiary)
+            .lineLimit(1)
+        } else {
+          Text(playerVM.currentStation?.name ?? "Untitled Station")
             .font(.headline)
             .lineLimit(1)
 
@@ -16,10 +20,11 @@ struct PlayerBarView: View {
             .font(.caption)
             .foregroundStyle(.secondary)
         }
+      }
 
-        Spacer()
+      Spacer()
 
-        // Playback controls
+      if playerVM.currentStation != nil {
         HStack(spacing: 8) {
           Button {
             playerVM.togglePlayPause()
@@ -41,12 +46,12 @@ struct PlayerBarView: View {
           .buttonStyle(.borderless)
         }
       }
-      .padding(.horizontal, 16)
-      .padding(.vertical, 10)
-      .background(.bar)
-      .overlay(alignment: .top) {
-        Divider()
-      }
+    }
+    .padding(.horizontal, 16)
+    .padding(.vertical, 10)
+    .background(.bar)
+    .overlay(alignment: .top) {
+      Divider()
     }
   }
 
