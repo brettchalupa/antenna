@@ -27,9 +27,19 @@ lint-fix:
 build:
     xcodebuild -project Antenna.xcodeproj -scheme Antenna -configuration Debug build SYMROOT=build 2>&1 | tail -5
 
-# Build and run
+# Build the app (release, optimized)
+release:
+    xcodebuild -project Antenna.xcodeproj -scheme Antenna -configuration Release build SYMROOT=build 2>&1 | tail -5
+
+# Build and run (debug)
 run: build
     open build/Debug/Antenna.app
+
+# Build release and install to /Applications
+install: release
+    rm -rf /Applications/Antenna.app
+    cp -r build/Release/Antenna.app /Applications/
+    @echo "Installed to /Applications/Antenna.app"
 
 # Run tests
 test:
