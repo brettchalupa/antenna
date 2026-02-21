@@ -8,6 +8,12 @@ directory. Built with Swift 6 and SwiftUI.
 ![Swift 6](https://img.shields.io/badge/Swift-6-orange)
 ![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue)
 
+## Download
+
+Download the latest release from [GitHub Releases](https://github.com/brettchalupa/antenna/releases/latest). Unzip and drag `Antenna.app` to your Applications folder.
+
+Requires macOS 14 (Sonoma) or later.
+
 ## Features
 
 - **Discover** — Browse popular and trending stations worldwide
@@ -21,15 +27,9 @@ directory. Built with Swift 6 and SwiftUI.
 - **Keyboard Shortcuts** — Cmd+P play/pause, Cmd+. stop, Cmd+F find, Cmd+1/2/3
   navigate
 
-## Requirements
+## Building from Source
 
-- macOS 14 (Sonoma) or later
-- Xcode 16+
-- [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
-- [SwiftLint](https://github.com/realm/SwiftLint) (`brew install swiftlint`)
-- [just](https://github.com/casey/just) (`brew install just`)
-
-## Getting Started
+Requirements: macOS 14+, Xcode 16+, [XcodeGen](https://github.com/yonaskolb/XcodeGen), [SwiftLint](https://github.com/realm/SwiftLint), [just](https://github.com/casey/just)
 
 ```bash
 # Install prerequisites
