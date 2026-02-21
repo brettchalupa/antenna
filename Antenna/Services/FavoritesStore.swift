@@ -32,6 +32,11 @@ final class FavoritesStore {
     save()
   }
 
+  func move(from source: IndexSet, to destination: Int) {
+    favorites.move(fromOffsets: source, toOffset: destination)
+    save()
+  }
+
   func toggle(_ station: Station) {
     if isFavorite(station) {
       remove(station)

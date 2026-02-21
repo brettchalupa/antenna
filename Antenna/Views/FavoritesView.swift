@@ -43,6 +43,9 @@ struct FavoritesView: View {
               }
             }
           }
+          .onMove { source, destination in
+            favoritesStore.move(from: source, to: destination)
+          }
         }
       }
     }
