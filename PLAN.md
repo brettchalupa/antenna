@@ -1,292 +1,278 @@
-# Antenna - macOS Internet Radio Player
+# Antenna — Roadmap to v1.0 Open Source Release
 
-A native macOS internet radio player inspired by [Shortwave](https://apps.gnome.org/Shortwave/), built with Swift and SwiftUI.
+## Current State
 
----
+Antenna is a working macOS internet radio player with:
 
-## Vision
+- AVPlayer streaming (play/pause/stop/volume with UserDefaults persistence)
+- 50k+ stations via Radio Browser API (popular, trending, search)
+- Favorites with JSON persistence, drag-to-reorder, and custom station URLs
+- Media key integration (MPRemoteCommandCenter + MPNowPlayingInfoCenter)
+- Keyboard shortcuts (Cmd+P, Cmd+., Cmd+F, Cmd+1/2/3)
+- Actor-based favicon cache (memory + disk)
+- Swift 6 strict concurrency, MVVM with @Observable, XcodeGen
 
-A clean, minimal macOS menu-bar-friendly app for browsing, playing, and managing internet radio streams. Think "Spotify for internet radio" — fast to launch, easy to browse, and integrates natively with macOS media controls.
+## Competitive Landscape
 
----
+| App        | Price            | Native?        | Stations  |   Open Source?   |
+| ---------- | ---------------- | -------------- | --------- | :--------------: |
+| Broadcasts | Free / $5-10     | Catalyst       | 6k+       |        No        |
+| Triode     | Free / $10-20/yr | Swift          | Thousands |        No        |
+| Eter       | Free / $3-9      | SwiftUI        | 40k+      |        No        |
+| Radium     | ~$10             | AppKit         | 20k+      |    No (dead)     |
+| myTuner    | Free / $5-10     | Cross-platform | 50k+      |        No        |
+| TuneIn     | Free / $10/mo    | Unknown        | 100k+     |        No        |
+| SonicWeb   | ~$7-9            | Native         | 2k+       |        No        |
+| Radiola    | Free             | Native         | BYO       |  Yes (minimal)   |
+| Shortwave  | Free             | Rust+GTK       | 50k+      | Yes (Linux only) |
 
-## Research Summary
-
-### Station Directory: Radio Browser API
-
-We'll use the **[Radio Browser API](https://api.radio-browser.info/)** — a free, open-source, community-driven database of 50,000+ internet radio stations. No API key required.
-
-**Why Radio Browser over fmstream.org:**
-- Free, no API key or application process required
-- Public domain data license
-- JSON REST API with excellent search/filter capabilities
-- Already contains stations like WXPN (`https://wxpnhi.xpn.org/xpnhi`)
-- Multiple mirror servers for reliability
-
-**Key endpoints we'll use:**
-| Endpoint | Purpose |
-|---|---|
-| `GET /json/stations/search?name=...&tag=...&country=...` | Search/browse stations |
-| `GET /json/stations/topvote/<n>` | Popular stations for discovery |
-| `GET /json/stations/topclick/<n>` | Trending stations |
-| `GET /json/countries` | Country list for browsing |
-| `GET /json/tags` | Genre/tag list for browsing |
-| `GET /json/url/<stationuuid>` | Count click + get resolved stream URL |
-
-**Station object fields we'll use:**
-`stationuuid`, `name`, `url_resolved`, `homepage`, `favicon`, `countrycode`, `state`, `language`, `tags`, `codec`, `bitrate`, `votes`, `clickcount`, `lastcheckok`
-
-**Server discovery:** DNS lookup on `all.api.radio-browser.info`, then randomize selection per their guidelines. User-Agent: `Antenna/<version>`.
-
-### Audio Playback: AVPlayer
-
-`AVPlayer` (AVFoundation) handles HTTP audio streaming natively — MP3, AAC, HLS all work out of the box. No third-party audio libraries needed.
-
-### macOS Media Integration: MediaPlayer framework
-
-- **`MPNowPlayingInfoCenter`** — displays station name/info in macOS Control Center and Touch Bar
-- **`MPRemoteCommandCenter`** — handles play/pause/stop from media keys, headphone buttons, and Control Center
-- On macOS, must explicitly set `playbackState` (unlike iOS where it's inferred from AVAudioSession)
-
-### Development Environment
-
-| Tool | Version |
-|---|---|
-| Xcode | 26.2 |
-| Swift | 6.2.3 |
-| macOS | 15.6.1 (Sequoia) |
-| Homebrew | 5.0.14 |
-| SwiftLint | Not installed (will add) |
+**The gap**: No open-source, full-featured, SwiftUI-native macOS radio player
+exists. Antenna can be the "Shortwave for macOS."
 
 ---
 
-## Architecture
+## Milestone 1: Essential Features
 
-### Pattern: MVVM
+_Close the gap with Broadcasts, Triode, and Eter on the features users complain
+about most._
+
+### 1.1 Sleep Timer
+
+- [ ] Add `SleepTimer` service (countdown → `AudioPlayer.stop()`)
+- [ ] Preset durations: 15, 30, 45, 60, 90 min + custom
+- [ ] Timer button in `PlayerBarView` with remaining time indicator
+- [ ] Cancel timer option
+
+### 1.2 ICY Stream Metadata (Now Playing Track Info)
+
+- [ ] Observe `AVPlayerItem.timedMetadata` for ICY metadata (artist/track)
+- [ ] Display "Artist — Track" in `PlayerBarView` when available
+- [ ] Update `MPNowPlayingInfoCenter` with track info
+- [ ] Fall back to station name when no metadata
+
+### 1.3 Auto-Reconnect on Stream Failure
+
+- [ ] Detect `.failed` status on AVPlayerItem
+- [ ] Retry up to 3 times with exponential backoff (2s, 4s, 8s)
+- [ ] Show "Reconnecting..." state in UI
+- [ ] Give up and show error after max retries
+
+### 1.4 Resume Last Station on Launch
+
+- [ ] Persist last-played station UUID to UserDefaults
+- [ ] On app launch, restore the last station (paused state, ready to play)
+- [ ] Optional: auto-play on launch (preference toggle)
+
+### 1.5 Browse by Country and Genre
+
+- [ ] `getCountries()` and `getTags()` are already in `RadioBrowserAPI.swift` —
+      surface them in UI
+- [ ] Add country picker to Discover or as a filter in Search
+- [ ] Add genre/tag picker similarly
+- [ ] Show station count per country/genre
+
+### 1.6 Stream Quality Indicator
+
+- [ ] Display codec and bitrate in `PlayerBarView` when playing
+- [ ] Station model already has `codec` and `bitrate` fields — just wire to UI
+
+---
+
+## Milestone 2: Power User Features
+
+_Features that make Antenna stand out and feel like a daily-driver app._
+
+### 2.1 Menu Bar Mini Player
+
+- [ ] Add a menu bar extra with `MenuBarExtra` (macOS 13+)
+- [ ] Show current station name + play/pause/stop controls
+- [ ] Volume slider in popover
+- [ ] Quick-switch between recent/favorite stations
+- [ ] Option to hide Dock icon when menu bar mode is active
+
+### 2.2 Listening History / Track Log
+
+- [ ] Log station + track metadata with timestamps
+- [ ] Persist to `~/Library/Application Support/Antenna/history.json`
+- [ ] New sidebar tab or section showing recent listening history
+- [ ] Tap a history entry to replay that station
+
+### 2.3 AirPlay 2 Support
+
+- [ ] Add `AVRoutePickerView` button to `PlayerBarView`
+- [ ] Wrap in `NSViewRepresentable` for SwiftUI
+
+### 2.5 M3U / PLS Import & Export
+
+- [ ] Parse M3U and PLS playlist formats
+- [ ] Import: File > Import Stations menu item
+- [ ] Export: File > Export Favorites menu item
+- [ ] Map imported entries to Station model
+
+---
+
+## Milestone 3: Differentiators
+
+_Features that no or few competitors offer — reasons to choose Antenna._
+
+### 3.1 ShazamKit Integration
+
+- [ ] Use Apple's ShazamKit framework to identify currently playing track
+- [ ] "Identify Song" button in player bar
+- [ ] Show album art, song title, artist from Shazam result
+- [ ] Link to Apple Music / open in Music app
+
+### 3.2 Apple Shortcuts Integration
+
+- [ ] Define App Intents: "Play Station", "Stop Playback", "What's Playing"
+- [ ] Register with Shortcuts app
+- [ ] Enable Siri voice commands
+
+### 3.3 Global Hotkeys
+
+- [ ] Play/pause/stop from any app (not just when Antenna is focused)
+- [ ] Use `NSEvent.addGlobalMonitorForEvents` or Carbon hotkey API
+- [ ] Configurable in preferences
+
+### 3.4 Stream Recording (Stretch)
+
+- [ ] Record current stream to local file (MP3/AAC)
+- [ ] Auto-split by track using ICY metadata boundaries
+- [ ] Save to user-chosen directory
+- [ ] Note: Legal considerations vary by jurisdiction — add disclaimer
+
+### 3.5 Equalizer (Stretch)
+
+- [ ] Switch from AVPlayer to AVAudioEngine pipeline
+- [ ] Add AVAudioUnitEQ with preset bands
+- [ ] Per-station EQ presets
+- [ ] Note: High effort — requires rearchitecting audio pipeline
+
+---
+
+## Milestone 4: Open Source Release Prep
+
+_Everything needed to ship v1.0 as a public open-source project._
+
+### 4.1 License
+
+- [x] Add `LICENSE` file — **Unlicense** (public domain)
+- [ ] ~~Add license header comment to source files~~ (not needed for Unlicense)
+
+### 4.2 Code Cleanup
+
+- [x] Audit repo for secrets, personal paths, TODOs — clean
+- [x] Remove any hardcoded test data — none found
+- [x] Ensure `.gitignore` covers build artifacts, .xcodeproj internals, secrets
+      — already covered
+- [ ] Review all `print()` statements — replace with proper logging or remove
+
+### 4.3 README
+
+- [ ] Hero screenshot of the app
+- [x] One-line description + feature list
+- [ ] Download section (GitHub Releases, Homebrew) — add once first release is
+      published
+- [x] Build-from-source instructions
+- [x] Link to CONTRIBUTING.md and LICENSE
+
+### 4.4 CONTRIBUTING.md
+
+- [x] Prerequisites and setup instructions
+- [x] `just ok` as the mandatory gate
+- [x] Code style guide (swift-format is authority, MVVM, @Observable patterns)
+- [x] PR guidelines (focused changes, screenshots for UI, `just ok` must pass)
+- [x] Issue reporting guidelines
+
+### 4.5 GitHub Infrastructure
+
+- [x] Issue templates: Bug Report + Feature Request (YAML forms)
+- [x] PR template with checklist
+- [ ] CODE_OF_CONDUCT.md (Contributor Covenant)
+- [ ] GitHub Topics: `macos`, `swift`, `swiftui`, `radio`, `internet-radio`,
+      `open-source`
+- [ ] Social preview image (1280x640)
+
+### 4.6 CI / GitHub Actions
+
+- [x] CI workflow on push/PR to main:
+  - `swift format` check (fail if formatting changes needed)
+  - `swiftlint --strict`
+  - `xcodebuild` build
+- [ ] Release workflow on tag push (`v*`):
+  - Archive + export
+  - Code sign + notarize
+  - Create DMG (via `create-dmg`)
+  - Upload to GitHub Release
+
+### 4.7 Code Signing & Notarization
+
+- [ ] Apple Developer Program ($99/year) — required for signing and notarization
+- [ ] Developer ID certificate for direct distribution
+- [ ] Notarize with `xcrun notarytool` — without this, Gatekeeper blocks the app
+- [ ] Staple notarization ticket to DMG
+
+### 4.8 Distribution
+
+- [ ] **GitHub Releases** — signed, notarized DMG (primary channel)
+- [ ] **Homebrew Cask** — submit PR to homebrew-cask repo after first stable
+      release
+- [ ] **Mac App Store** (optional) — requires sandboxing entitlements, $99/yr
+      account
+  - Consider the Maccy model: free on GitHub, small fee on App Store to offset
+    costs
+
+---
+
+## Milestone 5: Launch & Community
+
+### 5.1 Launch Checklist
+
+- [ ] Tag `v1.0.0`
+- [ ] Upload signed DMG to GitHub Releases
+- [ ] Post to **Hacker News** ("Show HN: Antenna — open-source internet radio
+      for macOS")
+- [ ] Post to **r/macapps** with screenshot and download link
+- [ ] Post to **r/opensource**, **r/swift**, **r/SwiftUI**
+- [ ] Submit to **Product Hunt**
+
+### 5.2 Post-Launch
+
+- [ ] Submit Homebrew Cask PR
+- [ ] Respond to issues quickly in the first 2 weeks
+- [ ] Label issues with "good first issue" and "help wanted"
+- [ ] Submit to newsletters: iOS Dev Weekly, Console.dev, Changelog
+- [ ] Set up GitHub Sponsors
+- [ ] Add Sparkle framework for auto-updates (direct download users)
+- [ ] Enable GitHub Discussions for Q&A
+- [ ] Maintain CHANGELOG.md with each release
+
+---
+
+## Milestone 6: Beyond
+
+### 6.1 Favorite sync
+
+- [ ] Via built in Apple SDKs like iCloud Drive or whatever is available
+
+### 6.2 iPadOS, iOS, and TVOS support
+
+- [ ] explore what it'd be like to launch the app for more platforms
+
+---
+
+## Priority Order
+
+Work through milestones roughly in order, but items within each milestone can be
+tackled independently:
 
 ```
-Antenna/
-├── AntennaApp.swift              # App entry point
-├── Models/
-│   ├── Station.swift             # Station data model (Codable)
-│   └── PlayerState.swift         # Playback state enum
-├── Services/
-│   ├── RadioBrowserAPI.swift     # API client for radio-browser.info
-│   ├── AudioPlayer.swift         # AVPlayer wrapper + media controls
-│   └── FavoritesStore.swift      # Persistence for favorites
-├── ViewModels/
-│   ├── BrowseViewModel.swift     # Search & browse logic
-│   ├── FavoritesViewModel.swift  # Favorites management
-│   └── PlayerViewModel.swift     # Playback state management
-├── Views/
-│   ├── ContentView.swift         # Main window with sidebar navigation
-│   ├── BrowseView.swift          # Station directory browser
-│   ├── SearchView.swift          # Search interface
-│   ├── FavoritesView.swift       # Saved stations list
-│   ├── StationRowView.swift      # Station list item
-│   ├── PlayerBarView.swift       # Now-playing bar (bottom of window)
-│   └── AddStationView.swift      # Custom URL entry sheet
-├── Resources/
-│   └── Assets.xcassets           # App icon, colors
-├── Info.plist
-└── Antenna.entitlements          # Network access entitlement
+Milestone 1 (Essential Features)     — must-have for v1.0
+Milestone 4 (Open Source Prep)       — must-have for v1.0
+Milestone 2 (Power User Features)    — should-have for v1.0, some can slip to v1.1
+Milestone 5 (Launch)                 — do once 1 + 4 are done
+Milestone 3 (Differentiators)        — v1.1+ (nice-to-have, post-launch)
 ```
 
-### Data Flow
-
-```
-RadioBrowserAPI  ──→  BrowseViewModel  ──→  BrowseView
-                                              │
-                                         user taps play
-                                              │
-                                              ▼
-FavoritesStore  ←──  PlayerViewModel  ──→  AudioPlayer
-                          │                    │
-                          ▼                    ▼
-                    PlayerBarView      MPNowPlayingInfoCenter
-                                       MPRemoteCommandCenter
-```
-
----
-
-## Features & Implementation Plan
-
-### Phase 1: Project Scaffolding & Audio Playback
-_Get a working app that can play a hardcoded stream URL._
-
-1. **Create Xcode project** via `xcodebuild` / Swift Package Manager
-   - macOS app target, SwiftUI lifecycle, minimum deployment: macOS 14
-   - Add entitlements: `com.apple.security.network.client` (outgoing connections)
-
-2. **AudioPlayer service**
-   - Wrap `AVPlayer` for streaming playback
-   - Methods: `play(url:)`, `pause()`, `resume()`, `stop()`
-   - Observe `AVPlayerItem.status` and `AVPlayer.timeControlStatus` for state
-   - Expose `@Published` state: `.idle`, `.loading`, `.playing`, `.paused`, `.error`
-
-3. **Minimal UI**
-   - Single window with a text field for URL + play/pause button
-   - Now-playing bar at the bottom showing station name + playback controls
-   - Test with `https://wxpnhi.xpn.org/xpnhi-nopreroll`
-
-### Phase 2: Media Controls Integration
-
-4. **MPNowPlayingInfoCenter setup**
-   - Set `nowPlayingInfo` dict with: `MPMediaItemPropertyTitle` (station name), `MPNowPlayingInfoPropertyIsLiveStream` = true
-   - Set `playbackState` explicitly (required on macOS)
-
-5. **MPRemoteCommandCenter setup**
-   - Register handlers for: `playCommand`, `pauseCommand`, `togglePlayPauseCommand`, `stopCommand`
-   - Wire to AudioPlayer service
-
-### Phase 3: Station Directory & Browsing
-
-6. **RadioBrowserAPI service**
-   - Async/await based `URLSession` client
-   - Server discovery: resolve `all.api.radio-browser.info` via DNS, pick random server
-   - Methods:
-     - `searchStations(name:tag:country:limit:offset:)` → `[Station]`
-     - `getTopVoted(limit:)` → `[Station]`
-     - `getTopClicked(limit:)` → `[Station]`
-     - `getCountries()` → `[Country]`
-     - `getTags(limit:)` → `[Tag]`
-     - `clickStation(uuid:)` → resolved URL
-   - User-Agent header: `Antenna/0.1`
-   - Proper error handling with typed errors
-
-7. **Station model**
-   ```swift
-   struct Station: Codable, Identifiable, Hashable {
-       let stationuuid: String
-       let name: String
-       let urlResolved: String
-       let homepage: String?
-       let favicon: String?
-       let countrycode: String
-       let state: String?
-       let tags: String
-       let codec: String?
-       let bitrate: Int
-       let votes: Int
-       let clickcount: Int
-       let lastcheckok: Int
-       var id: String { stationuuid }
-   }
-   ```
-
-8. **Browse UI**
-   - Sidebar navigation: Discover, Search, Favorites
-   - Discover tab: Top Voted + Top Clicked stations in sections
-   - Search tab: Text search with optional filters (country, tag)
-   - Station rows: Name, tags, country flag, bitrate badge, play button
-   - Async favicon loading with `AsyncImage`
-   - Pagination via infinite scroll (offset-based)
-
-### Phase 4: Favorites & Custom Stations
-
-9. **FavoritesStore service**
-   - Persist to `~/Library/Application Support/Antenna/favorites.json`
-   - Store full `Station` objects (works for both API stations and custom ones)
-   - Methods: `add(station:)`, `remove(uuid:)`, `isFavorite(uuid:)`, `getAll()`
-   - `@Published var favorites: [Station]`
-
-10. **Add Custom Station sheet**
-    - Text fields: Name (required), Stream URL (required), Homepage (optional), Tags (optional)
-    - Validate URL format and optionally test stream connectivity
-    - Generate a local UUID for custom stations
-    - Auto-add to favorites on save
-
-11. **Favorites UI**
-    - List of favorited stations with remove/unfavorite action
-    - "Add Custom Station" button at top
-    - Drag to reorder (optional, stretch goal)
-
-### Phase 5: Polish & Refinements
-
-12. **Favicon caching** — cache downloaded favicons to disk
-13. **Error states** — connection errors, stream failures, empty states
-14. **Keyboard shortcuts** — Space for play/pause, Cmd+F for search
-15. **App icon** — radio antenna themed icon
-
----
-
-## CLI Development Workflow
-
-### Project Creation
-```bash
-# We'll create the Xcode project from the CLI
-# Option A: Use `swift package init` + add to Xcode workspace
-# Option B: Generate project with a script
-
-# For a SwiftUI macOS app, we'll use xcodebuild with a Package.swift
-# that defines an executable target, or create the .xcodeproj manually
-```
-
-### Daily Commands (via `just`)
-
-```bash
-just generate   # Generate .xcodeproj from project.yml
-just build      # Build the app (debug)
-just run        # Build and run
-just test       # Run tests
-just clean      # Clean build artifacts
-just lint       # Lint with SwiftLint
-just lint-fix   # Auto-fix lint issues
-just rebuild    # Regenerate project + build
-just open       # Open in Xcode
-```
-
-### Justfile
-We use [`just`](https://github.com/casey/just) as our command runner — simpler than Make, no tab sensitivity, better error messages.
-
-### SwiftLint Configuration
-Minimal `.swiftlint.yml` with sensible defaults — not too strict for a learning project.
-
----
-
-## Technical Decisions & Rationale
-
-| Decision | Choice | Why |
-|---|---|---|
-| UI Framework | SwiftUI | Modern, declarative, less boilerplate than AppKit |
-| Audio | AVPlayer | Built-in HTTP streaming, no dependencies needed |
-| API | Radio Browser | Free, open, no API key, 50k+ stations |
-| Persistence | JSON file | Simple, no CoreData complexity for a list of favorites |
-| Architecture | MVVM | Natural fit for SwiftUI's data binding |
-| Min macOS | 14 (Sonoma) | Access to latest SwiftUI features |
-| Concurrency | async/await | Modern Swift concurrency, cleaner than callbacks |
-
----
-
-## Implementation Order
-
-```
-Phase 1  ████████░░░░░░░░░░░░  Project setup + audio playback
-Phase 2  ████████████░░░░░░░░  Media keys + Control Center
-Phase 3  ████████████████░░░░  Browse stations + search
-Phase 4  ████████████████████  Favorites + custom stations
-Phase 5  ████████████████████  Polish
-```
-
-**Estimated phases:** 5 phases, each buildable and testable independently.
-
-Each phase ends with a working app — Phase 1 alone gives you a functional radio player.
-
----
-
-## Open Questions
-
-1. **Window style** — Standard window, or also a mini-player / menu-bar mode? (Start with standard window, can add mini-player later)
-2. **Recordings** — Shortwave supports recording streams. Defer to a future version?
-3. **Network device playback** — Shortwave supports Chromecast. Out of scope for v1?
-
----
-
-## References
-
-- [Radio Browser API Docs](https://de2.api.radio-browser.info/)
-- [AVPlayer Docs](https://developer.apple.com/documentation/avfoundation/avplayer)
-- [MPNowPlayingInfoCenter](https://developer.apple.com/documentation/mediaplayer/mpnowplayinginfocenter)
-- [MPRemoteCommandCenter](https://developer.apple.com/documentation/mediaplayer/mpremotecommandcenter)
-- [Shortwave (inspiration)](https://apps.gnome.org/Shortwave/)
-- [fmstream.org](https://fmstream.org/index.php) — alternative stream directory for reference
+Milestones 1 and 4 can be worked on in parallel — features and release prep are
+independent tracks.

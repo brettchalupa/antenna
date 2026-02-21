@@ -2,6 +2,7 @@ import SwiftUI
 
 @main
 struct AntennaApp: App {
+  @Environment(\.openWindow) private var openWindow
   @State private var playerViewModel = PlayerViewModel()
   @State private var browseViewModel = BrowseViewModel()
   @State private var favoritesStore = FavoritesStore()
@@ -20,6 +21,11 @@ struct AntennaApp: App {
     }
     .defaultSize(width: 700, height: 550)
     .commands {
+      CommandGroup(replacing: .appInfo) {
+        Button("About Antenna") {
+          openWindow(id: "about")
+        }
+      }
       CommandMenu("Playback") {
         Button(playerViewModel.isPlaying ? "Pause" : "Play") {
           playerViewModel.togglePlayPause()
@@ -59,5 +65,12 @@ struct AntennaApp: App {
         .keyboardShortcut("3", modifiers: .command)
       }
     }
+
+    Window("About Antenna", id: "about") {
+      AboutView()
+    }
+    .windowResizability(.contentSize)
+    .windowStyle(.titleBar)
+    .defaultPosition(.center)
   }
 }

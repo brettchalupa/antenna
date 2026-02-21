@@ -18,6 +18,7 @@ enum SidebarItem: String, CaseIterable, Identifiable {
 
 struct ContentView: View {
   @Environment(PlayerViewModel.self) private var playerVM
+  @Environment(\.openWindow) private var openWindow
   var browseVM: BrowseViewModel
   @Binding var selectedTab: SidebarItem?
   @Binding var searchFocusTrigger: Int
@@ -26,6 +27,18 @@ struct ContentView: View {
     NavigationSplitView {
       List(SidebarItem.allCases, id: \.self, selection: $selectedTab) { item in
         Label(item.rawValue, systemImage: item.icon)
+      }
+      .safeAreaInset(edge: .bottom) {
+        Button {
+          openWindow(id: "about")
+        } label: {
+          Label("About", systemImage: "info.circle")
+            .font(.caption)
+            .foregroundColor(.secondary)
+        }
+        .buttonStyle(.plain)
+        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity)
       }
       .navigationSplitViewColumnWidth(min: 150, ideal: 180)
     } detail: {

@@ -1,9 +1,12 @@
 # Antenna
 
-A native macOS internet radio player inspired by [Shortwave](https://apps.gnome.org/Shortwave/). Browse, search, and listen to 50,000+ stations from the [Radio Browser](https://www.radio-browser.info/) directory.
+A free, open-source internet radio player for macOS. Browse, search, and listen
+to 50,000+ stations from the [Radio Browser](https://www.radio-browser.info/)
+directory. Built with Swift 6 and SwiftUI.
 
 ![macOS 14+](https://img.shields.io/badge/macOS-14%2B-blue)
 ![Swift 6](https://img.shields.io/badge/Swift-6-orange)
+![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue)
 
 ## Features
 
@@ -11,10 +14,12 @@ A native macOS internet radio player inspired by [Shortwave](https://apps.gnome.
 - **Search** — Find stations by name across 50,000+ entries
 - **Favorites** — Save stations for quick access, persisted across launches
 - **Custom Stations** — Add any stream URL (MP3, AAC, HLS)
-- **Media Controls** — Play/pause from media keys, headphones, and macOS Control Center
+- **Media Controls** — Play/pause from media keys, headphones, and macOS Control
+  Center
 - **Now Playing** — Station info in macOS Control Center and Touch Bar
 - **Volume Control** — Adjustable volume slider, persisted across launches
-- **Keyboard Shortcuts** — Cmd+P play/pause, Cmd+. stop, Cmd+F find, Cmd+1/2/3 navigate
+- **Keyboard Shortcuts** — Cmd+P play/pause, Cmd+. stop, Cmd+F find, Cmd+1/2/3
+  navigate
 
 ## Requirements
 
@@ -27,8 +32,11 @@ A native macOS internet radio player inspired by [Shortwave](https://apps.gnome.
 ## Getting Started
 
 ```bash
+# Install prerequisites
+brew install just xcodegen swiftlint
+
 # Clone the repo
-git clone https://github.com/yourusername/antenna.git
+git clone https://github.com/brettchalupa/antenna.git
 cd antenna
 
 # Generate the Xcode project
@@ -55,7 +63,8 @@ just clean       # Remove build artifacts
 just open        # Open project in Xcode
 ```
 
-`just ok` is the gate check — it runs the formatter, linter, and compiler. Everything must pass with zero violations.
+`just ok` is the gate check — it runs the formatter, linter, and compiler.
+Everything must pass with zero violations.
 
 ## Architecture
 
@@ -72,10 +81,16 @@ FavoritesStore  <--  PlayerViewModel  -->  AudioPlayer
                                         MPRemoteCommandCenter
 ```
 
-- **Models** — `Station` (Codable, matches Radio Browser API), `PlayerState` enum
-- **Services** — `AudioPlayer` (AVPlayer + media controls), `RadioBrowserAPI` (async HTTP client with DNS server discovery), `FavoritesStore` (JSON file persistence), `ImageCache` (actor-based favicon cache)
-- **ViewModels** — `PlayerViewModel` (playback bridge), `BrowseViewModel` (search + discovery)
-- **Views** — `ContentView` (sidebar navigation), tab views, `PlayerBarView` (bottom bar with controls + volume), `StationRowView` (station list item with favicon)
+- **Models** — `Station` (Codable, matches Radio Browser API), `PlayerState`
+  enum
+- **Services** — `AudioPlayer` (AVPlayer + media controls), `RadioBrowserAPI`
+  (async HTTP client with DNS server discovery), `FavoritesStore` (JSON file
+  persistence), `ImageCache` (actor-based favicon cache)
+- **ViewModels** — `PlayerViewModel` (playback bridge), `BrowseViewModel`
+  (search + discovery)
+- **Views** — `ContentView` (sidebar navigation), tab views, `PlayerBarView`
+  (bottom bar with controls + volume), `StationRowView` (station list item with
+  favicon)
 
 ## App Icon
 
@@ -85,18 +100,33 @@ The app icon is generated programmatically:
 swift scripts/generate_icon.swift
 ```
 
-This renders the [FontAwesome radio icon](https://fontawesome.com/icons/radio) (MIT licensed) on a gradient background into all required sizes in the asset catalog.
+This renders the [FontAwesome radio icon](https://fontawesome.com/icons/radio)
+(MIT licensed) on a gradient background into all required sizes in the asset
+catalog.
 
 ## Tech Stack
 
-| Component | Technology |
-|---|---|
-| UI | SwiftUI |
-| Audio | AVPlayer (AVFoundation) |
-| Media Controls | MediaPlayer (MPRemoteCommandCenter, MPNowPlayingInfoCenter) |
-| Station Data | [Radio Browser API](https://api.radio-browser.info/) (free, no API key) |
-| Persistence | JSON file + UserDefaults |
-| Project Gen | XcodeGen |
-| Linting | SwiftLint |
-| Formatting | swift-format |
-| Task Runner | just |
+| Component      | Technology                                                              |
+| -------------- | ----------------------------------------------------------------------- |
+| UI             | SwiftUI                                                                 |
+| Audio          | AVPlayer (AVFoundation)                                                 |
+| Media Controls | MediaPlayer (MPRemoteCommandCenter, MPNowPlayingInfoCenter)             |
+| Station Data   | [Radio Browser API](https://api.radio-browser.info/) (free, no API key) |
+| Persistence    | JSON file + UserDefaults                                                |
+| Project Gen    | XcodeGen                                                                |
+| Linting        | SwiftLint                                                               |
+| Formatting     | swift-format                                                            |
+| Task Runner    | just                                                                    |
+
+## Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for setup
+instructions and guidelines.
+
+## Support
+
+If you enjoy Antenna, consider [buying me a coffee](https://buymeacoffee.com/brettchalupa).
+
+## License
+
+This project is released into the public domain under the [Unlicense](LICENSE).

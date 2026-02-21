@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tools
+        run: brew install just xcodegen swiftlint
+
+      - name: Generate Xcode project
+        run: just generate
+
+      - name: Format check
+        run: |
+          swift format --in-place --recursive Antenna/
+          git diff --exit-code || (echo "::error::swift-format found changes. Run 'just format' and commit." && exit 1)
+
+      - name: Lint
+        run: swiftlint --strict --config .swiftlint.yml
+
+      - name: Build
+        run: xcodebuild -project Antenna.xcodeproj -scheme Antenna -configuration Debug build SYMROOT=build 2>&1 | tail -20
