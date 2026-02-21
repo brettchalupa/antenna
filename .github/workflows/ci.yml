@@ -21,7 +21,7 @@ jobs:
       - name: Format check
         run: |
           swift format --in-place --recursive Antenna/
-          git diff --exit-code || (echo "::error::swift-format found changes. Run 'just format' and commit." && exit 1)
+          git diff --exit-code -- 'Antenna/**/*.swift' || (echo "::error::swift-format found changes. Run 'just format' and commit." && exit 1)
 
       - name: Lint
         run: swiftlint --strict --config .swiftlint.yml

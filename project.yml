@@ -21,7 +21,7 @@ targets:
           - "**/.DS_Store"
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.antenna.app
+        PRODUCT_BUNDLE_IDENTIFIER: com.brettchalupa.antenna
         PRODUCT_NAME: Antenna
         INFOPLIST_FILE: Antenna/Info.plist
         CODE_SIGN_ENTITLEMENTS: Antenna/Antenna.entitlements
@@ -31,6 +31,9 @@ targets:
         CODE_SIGN_IDENTITY: "-"
         CODE_SIGNING_REQUIRED: "NO"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.music"
+        ENABLE_HARDENED_RUNTIME: "YES"
+        DEAD_CODE_STRIPPING: "YES"
     entitlements:
       path: Antenna/Antenna.entitlements
       properties:
