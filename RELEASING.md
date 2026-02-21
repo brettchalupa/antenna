@@ -7,7 +7,6 @@ Steps for creating a new release.
 - Apple Developer Program membership
 - Signed into your Apple ID in **Xcode > Settings > Accounts**
 - Developer ID Application certificate (create via Xcode > Settings > Accounts > Manage Certificates > "+")
-- `create-dmg` installed: `brew install create-dmg`
 
 ## Versioning
 
@@ -76,22 +75,14 @@ git commit -m "Bump version to 0.2.0"
    - Staple the notarization ticket
 5. Choose an export location — Xcode exports a signed, notarized `Antenna.app`
 
-## 4. Create the DMG
+## 4. Create the zip
+
+From the directory where Xcode exported the app:
 
 ```bash
-create-dmg \
-  --volname "Antenna" \
-  --window-pos 200 120 \
-  --window-size 600 400 \
-  --icon-size 100 \
-  --icon "Antenna.app" 175 190 \
-  --app-drop-link 425 190 \
-  --hide-extension "Antenna.app" \
-  "Antenna-0.2.0.dmg" \
-  "/path/to/exported/Antenna.app"
+cd /path/to/exported/
+zip -r Antenna-0.2.0.zip Antenna.app
 ```
-
-Replace `/path/to/exported/Antenna.app` with wherever Xcode exported the app.
 
 ## 5. Tag and push
 
@@ -103,12 +94,12 @@ git push origin main --tags
 ## 6. Create the GitHub Release
 
 ```bash
-gh release create v0.2.0 Antenna-0.2.0.dmg \
+gh release create v0.2.0 Antenna-0.2.0.zip \
   --title "Antenna v0.2.0" \
   --notes "Release notes here"
 ```
 
-Or create the release through the GitHub web UI and upload the DMG.
+Or create the release through the GitHub web UI and upload the zip.
 
 ## 7. Post-release
 

@@ -20,3 +20,5 @@ Package.resolved
 *.ipa
 *.dSYM.zip
 *.dSYM
+
+builds/
